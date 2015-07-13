@@ -1,0 +1,5 @@
+*.o
+*.a
+*.swp
+*.png
+aec-tool
