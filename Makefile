@@ -1,6 +1,6 @@
-CC=g++
-LDFLAGS=$(shell Magick++-config  --cppflags --libs)
-CPPFLAGS=$(shell Magick++-config  --cppflags --ldflags)
+CC := g++
+LDFLAGS := $(shell Magick++-config  --cppflags --libs)
+CPPFLAGS := $(shell Magick++-config  --cppflags --ldflags)
 
 all: aec-tool
 
