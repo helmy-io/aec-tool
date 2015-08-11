@@ -66,9 +66,10 @@ c_render::c_render(int num_rows, int num_cols,
 	int terminal_width = num_cols * CHAR_WIDTH +  2 * HORIZONTAL_MARGIN;
 	int terminal_height = num_rows * CHAR_HEIGHT + 2 * VERTICAL_MARGIN;
 
-	p_image = new Image(Geometry(terminal_width, terminal_height), bg);
-	p_image->font(p_font_family); // not bold, not italic
-	p_image->fontPointsize(font_size);
+	image.size(Geometry(terminal_width, terminal_height));
+	// TODO: set bg
+	image.font(p_font_family);
+	image.fontPointsize(font_size);
 }
 
 void c_render::put_str(char const *p_str)
@@ -87,31 +88,31 @@ void c_render::put_str(char const *p_str)
 
 	// render background before drawing
 	DrawableRectangle bg_rect(left_bound, upper_bound, right_bound, lower_bound);
-	p_image->fillColor(bg);
-	p_image->draw(bg_rect);
+	image.fillColor(bg);
+	image.draw(bg_rect);
 
 	// choose text foreground
-	p_image->fillColor(fg);
+	image.fillColor(fg);
 
 	// choose a font from the font family
 	if(bold && italic)
-		p_image->font(p_font_bold_italic);
+		image.font(p_font_bold_italic);
 	else if(bold)
-		p_image->font(p_font_bold);
+		image.font(p_font_bold);
 	else if(italic)
-		p_image->font(p_font_italic);
+		image.font(p_font_italic);
 	else
-		p_image->font(p_font_family);
+		image.font(p_font_family);
 
 	DrawableText text(left_bound, lower_bound + DESCENT - 1,  p_str);
 	list<Drawable> text_list;
 	text_list.push_back(text);
 	text_list.push_back(DrawableTextDecoration(decoration));
-	p_image->draw(text_list);
+	image.draw(text_list);
 }
 
 void c_render::write(char const *p_str)
 {
-	p_image->write(p_str);
+	image.write(p_str);
 }
 

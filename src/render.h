@@ -28,7 +28,7 @@ using namespace Magick;
 
 class c_render
 {
-	Image *p_image;
+	Image image;
 
 	int CHAR_WIDTH;
 	int CHAR_HEIGHT;
