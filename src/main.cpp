@@ -39,10 +39,10 @@ void test1()
 	char a_buf[256];
 	sprintf(a_buf, "");
 	c_render render(12, 50, // rows, cols
-		"./fonts/mono.ttf", // font family
-		"./fonts/mono-bold.ttf", // bold font
-		"./fonts/mono-oblique.ttf", // italic font
-		"./fonts/mono-bold-oblique.ttf", // bold-italic font 
+		"./fonts/mono.tff", // font family
+		"./fonts/mono-bold.tff", // bold font
+		"./fonts/mono-oblique.tff", // italic font
+		"./fonts/mono-bold-oblique.tff", // bold-italic font 
 		12, // font size
 		Color("green"), // background
 		Color("black"), // foreground
