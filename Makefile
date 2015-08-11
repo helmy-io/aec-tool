@@ -12,8 +12,8 @@ aec-tool: $(OBJECTS)
 	@echo "Linking: aec-tool..."
 	@$(CC) $(LDFLAGS) $(OBJECTS) -o aec-tool
 
-objs/main.o: src/main.cpp
-objs/render.o: src/render.cpp src/render.h 
+# TODO: collect dependencies of files that have been modified only
+$(foreach source,$(SOURCES),$(eval $(shell printf "objs/`gcc -MM $(source)`"));)
 
 $(OBJECTS):
 	@echo "Compiling: $@"
