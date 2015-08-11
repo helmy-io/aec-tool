@@ -39,10 +39,10 @@ void test1()
 	char a_buf[256];
 	sprintf(a_buf, "");
 	c_render render(12, 50, // rows, cols
-		"./fonts/DejaVuSansMono.ttf", // font family
-		"./fonts/DejaVuSansMono-Bold.ttf", // bold font
-		"./fonts/DejaVuSansMono-Oblique.ttf", // italic font
-		"./fonts/DejaVuSansMono-Bold-Oblique.ttf", // bold-italic font 
+		"./fonts/mono.ttf", // font family
+		"./fonts/mono-bold.ttf", // bold font
+		"./fonts/mono-oblique.ttf", // italic font
+		"./fonts/mono-bold-oblique.ttf", // bold-italic font 
 		12, // font size
 		Color("green"), // background
 		Color("black"), // foreground
