@@ -67,7 +67,8 @@ c_render::c_render(int num_rows, int num_cols,
 	int terminal_height = num_rows * CHAR_HEIGHT + 2 * VERTICAL_MARGIN;
 
 	image.size(Geometry(terminal_width, terminal_height));
-	// TODO: set bg
+	image.backgroundColor(bg);
+	image.erase();
 	image.font(p_font_family);
 	image.fontPointsize(font_size);
 }
