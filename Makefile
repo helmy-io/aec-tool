@@ -13,7 +13,7 @@ aec-tool: $(OBJECTS)
 	@$(CC) $(LDFLAGS) $(OBJECTS) -o aec-tool
 
 # TODO: collect dependencies of files that have been modified only
-$(foreach source,$(SOURCES),$(eval $(shell printf "objs/`gcc -MM $(source)`"));)
+$(foreach source,$(SOURCES),$(eval $(shell printf "objs/`$(CC) -MM $(source)`"));)
 
 $(OBJECTS):
 	@echo "Compiling: $@"
