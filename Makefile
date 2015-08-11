@@ -1,20 +1,23 @@
 CC := g++
-LDFLAGS := $(shell Magick++-config  --cppflags --libs)
-CPPFLAGS := $(shell Magick++-config  --cppflags --ldflags)
+
+CPPFLAGS := $(shell Magick++-config --cxxflags --cppflags)
+LDFLAGS := $(shell Magick++-config --ldflags --libs)
+
+SOURCES := $(wildcard src/*.cpp)
+OBJECTS := $(SOURCES:src%.cpp=objs%.o)
 
 all: aec-tool
 
-aec-tool: objs/main.o objs/render.o
+aec-tool: $(OBJECTS)
 	@echo "Linking: aec-tool..."
-	@$(CC) $(LDFLAGS) objs/main.o objs/render.o -o aec-tool
+	@$(CC) $(LDFLAGS) $(OBJECTS) -o aec-tool
 
 objs/main.o: src/main.cpp
-	@echo "Compiling: ./src/main.cpp"
-	@$(CC) -c $(CPPFLAGS) src/main.cpp -o objs/main.o
+objs/render.o: src/render.cpp src/render.h 
 
-objs/render.o: src/render.h src/render.cpp
-	@echo "Compiling: ./src/render.cpp"
-	@$(CC) -c $(CPPFLAGS) src/render.cpp -o objs/render.o
+$(OBJECTS):
+	@echo "Compiling: $@"
+	@$(CC) -c $(CPPFLAGS) $< -o $@
 
 clean:
 	@rm objs/*.o
