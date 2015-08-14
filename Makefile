@@ -1,4 +1,4 @@
-CC := g++
+CXX := g++
 
 CPPFLAGS := $(shell Magick++-config --cxxflags --cppflags)
 LDFLAGS := $(shell Magick++-config --ldflags --libs)
@@ -11,17 +11,17 @@ all: aec-tool
 
 aec-tool: $(OBJECTS)
 	@echo "Linking: aec-tool..."
-	@$(CC) $(LDFLAGS) $(OBJECTS) -o aec-tool
+	@$(CXX) $(LDFLAGS) $(OBJECTS) -o aec-tool
 
 $(DEPENDS): deps/%.d: src/%.cpp
 	@echo "Generating deps: $@"
-	@$(shell printf "objs/`$(CC) -MM $<`\n" > $@)
+	@$(shell printf "objs/`$(CXX) -MM $<`\n" > $@)
 
 include $(DEPENDS)
 
 $(OBJECTS):
 	@echo "Compiling: $@"
-	@$(CC) -c $(CPPFLAGS) $< -o $@
+	@$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean:
 	@rm objs/*.o
