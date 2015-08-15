@@ -25,7 +25,7 @@
 using namespace Magick;
 using namespace std;
 
-c_render::c_render(int num_rows, int num_cols,
+Render::Render(int num_rows, int num_cols,
 	char const *p_font_family,
 	char const *p_font_bold,
 	char const *p_font_italic,
@@ -73,7 +73,7 @@ c_render::c_render(int num_rows, int num_cols,
 	image.fontPointsize(font_size);
 }
 
-void c_render::put_str(char const *p_str)
+void Render::put_str(char const *p_str)
 {
 	// calculate left bound
 	int left_bound = HORIZONTAL_MARGIN + col * CHAR_WIDTH;
@@ -112,7 +112,7 @@ void c_render::put_str(char const *p_str)
 	image.draw(text_list);
 }
 
-void c_render::write(char const *p_str)
+void Render::write(char const *p_str)
 {
 	image.write(p_str);
 }

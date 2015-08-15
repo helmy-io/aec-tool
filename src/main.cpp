@@ -38,7 +38,7 @@ void test1()
 {
 	char a_buf[256];
 	sprintf(a_buf, "");
-	c_render render(12, 50, // rows, cols
+	Render render(12, 50, // rows, cols
 		"./fonts/mono.tff", // font family
 		"./fonts/mono-bold.tff", // bold font
 		"./fonts/mono-oblique.tff", // italic font

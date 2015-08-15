@@ -26,7 +26,7 @@
 
 using namespace Magick;
 
-class c_render
+class Render
 {
 	Image image;
 
@@ -55,7 +55,7 @@ public:
 	bool italic;
 	DecorationType decoration;
 
-	c_render(int num_rows, int num_cols,
+	Render(int num_rows, int num_cols,
 		char const *p_font_family,
 		char const *p_font_bold,
 		char const *p_font_italic,
