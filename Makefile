@@ -18,11 +18,13 @@ $(DEPENDS): deps/%.d: src/%.cpp
 	@echo "Generating deps: $@"
 	@$(shell printf "objs/`$(CXX) -MM $<`\n" > $@)
 
+ifneq ($(MAKECMDGOALS),clean)
 include $(DEPENDS)
+endif
 
 $(OBJECTS):
 	@echo "Compiling: $@"
 	@$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean:
-	@rm $(OBJECTS) $(DEPENDS) $(BINFILE)
+	- @rm $(OBJECTS) $(DEPENDS) $(BINFILE) 2>/dev/null || true
