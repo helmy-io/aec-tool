@@ -6,12 +6,13 @@ LDFLAGS := $(shell Magick++-config --ldflags --libs)
 SOURCES := $(wildcard src/*.cpp)
 OBJECTS := $(SOURCES:src%.cpp=objs%.o)
 DEPENDS := $(SOURCES:src%.cpp=deps%.d)
+BINFILE := aec-tool
 
-all: aec-tool
+all: $(BINFILE)
 
-aec-tool: $(OBJECTS)
-	@echo "Linking: aec-tool..."
-	@$(CXX) $(LDFLAGS) $(OBJECTS) -o aec-tool
+$(BINFILE): $(OBJECTS)
+	@echo "Linking: $(BINFILE)..."
+	@$(CXX) $(LDFLAGS) $(OBJECTS) -o $(BINFILE)
 
 $(DEPENDS): deps/%.d: src/%.cpp
 	@echo "Generating deps: $@"
@@ -24,6 +25,4 @@ $(OBJECTS):
 	@$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean:
-	@rm objs/*.o
-	@rm deps/*
-	@rm aec-tool
+	@rm $(OBJECTS) $(DEPENDS) $(BINFILE)
