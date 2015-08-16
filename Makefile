@@ -4,8 +4,8 @@ CPPFLAGS := $(shell Magick++-config --cxxflags --cppflags)
 LDFLAGS := $(shell Magick++-config --ldflags --libs)
 
 SOURCES := $(wildcard src/*.cpp)
-OBJECTS := $(SOURCES:src%.cpp=objs%.o)
 DEPENDS := $(SOURCES:src%.cpp=deps%.d)
+OBJECTS := $(SOURCES:src%.cpp=objs%.o)
 BINFILE := aec-tool
 
 all: $(BINFILE)
