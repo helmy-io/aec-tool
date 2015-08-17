@@ -27,4 +27,4 @@ $(OBJECTS):
 	@$(CXX) -c $(CPPFLAGS) $< -o $@
 
 clean:
-	- @rm $(OBJECTS) $(DEPENDS) $(BINFILE) 2>/dev/null || true
+	@rm $(OBJECTS) $(DEPENDS) $(BINFILE) 2>/dev/null || true
