@@ -5,7 +5,7 @@ LDFLAGS := $(shell Magick++-config --ldflags --libs)
 
 SOURCES := $(wildcard src/*.cpp)
 DEPENDS := $(SOURCES:src%.cpp=deps%.d)
-OBJECTS := $(SOURCES:src%.cpp=objs%.o)
+OBJECTS := $(DEPENDS:deps%.d=objs%.o)
 BINFILE := aec-tool
 
 all: $(BINFILE)
