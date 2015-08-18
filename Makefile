@@ -3,6 +3,9 @@ CXX := g++
 CPPFLAGS := $(shell Magick++-config --cxxflags --cppflags)
 LDFLAGS := $(shell Magick++-config --ldflags --libs)
 
+CPPFLAGS += $(shell pkg-config vterm --cflags)
+LDFLAGS += $(shell pkg-config vterm --libs)
+
 SOURCES := $(wildcard src/*.cpp)
 DEPENDS := $(SOURCES:src%.cpp=deps%.d)
 OBJECTS := $(DEPENDS:deps%.d=objs%.o)
