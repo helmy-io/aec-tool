@@ -45,15 +45,16 @@ void test2()
 	VTermScreen *vts = vterm_obtain_screen(vt);
 	vterm_screen_reset(vts, 1);
 
+	const VTermColor bg = {0, 255, 0};
+	const VTermColor fg = {255, 255, 255};
+	vterm_state_set_default_colors(vterm_obtain_state(vt), &bg, &fg);
+
 	Render render(vt,
-		rows, cols, // rows, cols
 		"./fonts/mono.tff", // font family
 		"./fonts/mono-bold.tff", // bold font
 		"./fonts/mono-oblique.tff", // italic font
 		"./fonts/mono-bold-oblique.tff", // bold-italic font 
 		12, // font size
-		Color("green"), // background
-		Color("black"), // foreground
 		10, // vertical margin
 		10 // horizontal margin
 		);
@@ -72,14 +73,11 @@ void test1()
 	char a_buf[256];
 	sprintf(a_buf, "");
 	Render render(NULL,
-		12, 50, // rows, cols
 		"./fonts/mono.tff", // font family
 		"./fonts/mono-bold.tff", // bold font
 		"./fonts/mono-oblique.tff", // italic font
 		"./fonts/mono-bold-oblique.tff", // bold-italic font 
 		12, // font size
-		Color("green"), // background
-		Color("black"), // foreground
 		10, // vertical margin
 		10 // horizontal margin
 		);

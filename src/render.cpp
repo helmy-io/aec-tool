@@ -25,18 +25,14 @@
 using namespace Magick;
 using namespace std;
 
-Render::Render(VTerm*vt,
-	int num_rows, int num_cols,
+Render::Render(VTerm *vt,
 	char const *p_font_family,
 	char const *p_font_bold,
 	char const *p_font_italic,
 	char const *p_font_bold_italic,
 	int font_size,
-	Color bg, Color fg,
 	int vertical_margin, int horizontal_margin) :
 	vt(vt),
-	NUM_ROWS(num_rows), NUM_COLS(num_cols),
-	bg(bg), fg(fg),
 	VERTICAL_MARGIN(vertical_margin), HORIZONTAL_MARGIN(horizontal_margin)
 {
 	row = 0;
@@ -65,8 +61,16 @@ Render::Render(VTerm*vt,
 		CHAR_HEIGHT = dummy_image.fontPointsize() - DESCENT;
 	}
 	
+	int num_rows, num_cols;
+	vterm_get_size(vt, &num_rows, &num_cols);
+
 	int terminal_width = num_cols * CHAR_WIDTH +  2 * HORIZONTAL_MARGIN;
 	int terminal_height = num_rows * CHAR_HEIGHT + 2 * VERTICAL_MARGIN;
+
+	VTermColor vt_bg, vt_fg;
+	VTermState *state = vterm_obtain_state(vt);
+	vterm_state_get_default_colors(state, &vt_bg, &vt_fg);
+	bg = ColorRGB(vt_bg.red, vt_bg.green, vt_bg.blue);
 
 	image.size(Geometry(terminal_width, terminal_height));
 	image.backgroundColor(bg);
@@ -151,6 +155,16 @@ void Render::repaint_cell()
 	else if (cell.attrs.underline)
 		decoration = UnderlineDecoration;
 	// TODO: support overline
+
+	// update colors
+	{
+		VTermColor vt_bg, vt_fg;
+		VTermState *state = vterm_obtain_state(vt);
+		vterm_state_get_default_colors(state, &vt_bg, &vt_fg);
+
+		bg = ColorRGB(vt_bg.red, vt_bg.green, vt_bg.blue);
+		fg = ColorRGB(vt_fg.red, vt_fg.green, vt_fg.blue);
+	}
 
 	put_str(buf);
 }

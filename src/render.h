@@ -35,9 +35,6 @@ class Render
 	int CHAR_WIDTH;
 	int CHAR_HEIGHT;
 
-	const int NUM_ROWS;
-	const int NUM_COLS;
-
 	const int VERTICAL_MARGIN;
 	const int HORIZONTAL_MARGIN;
 
@@ -51,20 +48,18 @@ class Render
 public:
 	int row;
 	int col;
-	Color bg;
-	Color fg;
+	ColorRGB bg;
+	ColorRGB fg;
 	bool bold;
 	bool italic;
 	DecorationType decoration;
 
 	Render(VTerm *vt,
-		int num_rows, int num_cols,
 		char const *p_font_family,
 		char const *p_font_bold,
 		char const *p_font_italic,
 		char const *p_font_bold_italic,
 		int font_size,
-		Color bg, Color fg,
 		int vertical_margin, int horizontal_margin);
 
 	void put_str(char const *p_str);
