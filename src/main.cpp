@@ -38,14 +38,32 @@ int main(int argc, char** argv)
 
 void test2()
 {
-	VTerm *vt = vterm_new(24, 80);
+	int rows = 12;
+	int cols = 32;
+
+	VTerm *vt = vterm_new(rows, cols);
 	VTermScreen *vts = vterm_obtain_screen(vt);
 	vterm_screen_reset(vts, 1);
 
+	Render render(vt,
+		rows, cols, // rows, cols
+		"./fonts/mono.tff", // font family
+		"./fonts/mono-bold.tff", // bold font
+		"./fonts/mono-oblique.tff", // italic font
+		"./fonts/mono-bold-oblique.tff", // bold-italic font 
+		12, // font size
+		Color("green"), // background
+		Color("black"), // foreground
+		10, // vertical margin
+		10 // horizontal margin
+		);
+
 	char buf[256];
-	sprintf(buf, "Hello, world!\n");
+	sprintf(buf, "Hello, \033[1mworld!\n");
 	vterm_input_write(vt, buf, strlen(buf));
 
+	render.repaint();
+	render.write("test.png");
 	vterm_free(vt);
 }
 
@@ -53,7 +71,8 @@ void test1()
 {
 	char a_buf[256];
 	sprintf(a_buf, "");
-	Render render(12, 50, // rows, cols
+	Render render(NULL,
+		12, 50, // rows, cols
 		"./fonts/mono.tff", // font family
 		"./fonts/mono-bold.tff", // bold font
 		"./fonts/mono-oblique.tff", // italic font

@@ -23,12 +23,14 @@
 #include <string.h>
 
 #include <Magick++.h>
+#include <vterm.h>
 
 using namespace Magick;
 
 class Render
 {
 	Image image;
+	VTerm *vt;
 
 	int CHAR_WIDTH;
 	int CHAR_HEIGHT;
@@ -55,7 +57,8 @@ public:
 	bool italic;
 	DecorationType decoration;
 
-	Render(int num_rows, int num_cols,
+	Render(VTerm *vt,
+		int num_rows, int num_cols,
 		char const *p_font_family,
 		char const *p_font_bold,
 		char const *p_font_italic,
@@ -65,7 +68,9 @@ public:
 		int vertical_margin, int horizontal_margin);
 
 	void put_str(char const *p_str);
-
+	void repaint();
+	void repaint(int top_row, int top_col, int bot_row, int bot_col);
+	void repaint_cell();
 	void write(char const *p_str);
 };
 #endif

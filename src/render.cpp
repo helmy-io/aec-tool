@@ -25,7 +25,8 @@
 using namespace Magick;
 using namespace std;
 
-Render::Render(int num_rows, int num_cols,
+Render::Render(VTerm*vt,
+	int num_rows, int num_cols,
 	char const *p_font_family,
 	char const *p_font_bold,
 	char const *p_font_italic,
@@ -33,6 +34,7 @@ Render::Render(int num_rows, int num_cols,
 	int font_size,
 	Color bg, Color fg,
 	int vertical_margin, int horizontal_margin) :
+	vt(vt),
 	NUM_ROWS(num_rows), NUM_COLS(num_cols),
 	bg(bg), fg(fg),
 	VERTICAL_MARGIN(vertical_margin), HORIZONTAL_MARGIN(horizontal_margin)
@@ -110,6 +112,41 @@ void Render::put_str(char const *p_str)
 	text_list.push_back(text);
 	text_list.push_back(DrawableTextDecoration(decoration));
 	image.draw(text_list);
+}
+
+void Render::repaint()
+{
+	int rows, cols;
+	vterm_get_size(vt, &rows, &cols);
+	repaint(0, 0, rows - 1, cols - 1);
+}
+
+void Render::repaint(int top_row, int top_col, int bot_row, int bot_col)
+{
+	for(row = top_row; row <= bot_row; ++row)
+	{
+		for(col = top_col; col <= bot_col; ++col)
+		{
+			repaint_cell();
+		}
+	}
+}
+
+void Render::repaint_cell()
+{
+	VTermScreenCell cell;
+	VTermPos pos;
+	pos.row = row;
+	pos.col = col;
+	vterm_screen_get_cell(vterm_obtain_screen(vt), pos, &cell);
+
+	char buf[VTERM_MAX_CHARS_PER_CELL];
+	sprintf(buf, "%s", cell.chars);
+	
+	bold = cell.attrs.bold;
+	italic = cell.attrs.italic;
+
+	put_str(buf);
 }
 
 void Render::write(char const *p_str)
