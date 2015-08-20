@@ -145,6 +145,12 @@ void Render::repaint_cell()
 	
 	bold = cell.attrs.bold;
 	italic = cell.attrs.italic;
+	
+	if(cell.attrs.strike)
+		decoration = LineThroughDecoration;
+	else if (cell.attrs.underline)
+		decoration = UnderlineDecoration;
+	// TODO: support overline
 
 	put_str(buf);
 }
