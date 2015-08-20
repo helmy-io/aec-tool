@@ -21,7 +21,6 @@
 #include <vterm.h>
 
 #include "render.h"
-#include "term.h"
 
 using namespace std;
 using namespace Magick;
@@ -42,7 +41,6 @@ void test2()
 	VTerm *vt = vterm_new(24, 80);
 	VTermScreen *vts = vterm_obtain_screen(vt);
 	vterm_screen_reset(vts, 1);
-	vterm_screen_set_callbacks(vts, &screen_callbacks, NULL);
 
 	char buf[256];
 	sprintf(buf, "Hello, world!\n");
