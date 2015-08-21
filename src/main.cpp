@@ -45,7 +45,7 @@ void test2()
 	VTermScreen *vts = vterm_obtain_screen(vt);
 	vterm_screen_reset(vts, 1);
 
-	const VTermColor bg = {0, 255, 0};
+	const VTermColor bg = {0, 0, 0};
 	const VTermColor fg = {255, 255, 255};
 	vterm_state_set_default_colors(vterm_obtain_state(vt), &bg, &fg);
 
