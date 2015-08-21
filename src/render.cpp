@@ -75,7 +75,6 @@ Render::Render(VTerm *vt,
 	image.size(Geometry(terminal_width, terminal_height));
 	image.backgroundColor(bg);
 	image.erase();
-	image.font(p_font_family);
 	image.fontPointsize(font_size);
 }
 
