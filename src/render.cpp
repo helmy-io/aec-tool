@@ -154,8 +154,16 @@ void Render::repaint_cell()
 		VTermState *state = vterm_obtain_state(vt);
 		vterm_state_get_default_colors(state, &vt_bg, &vt_fg);
 
-		bg = ColorRGB(cell.bg.red, cell.bg.green, cell.bg.blue);
-		fg = ColorRGB(cell.fg.red, cell.fg.green, cell.fg.blue);
+		if(cell.attrs.reverse)
+		{
+			fg = ColorRGB(cell.bg.red, cell.bg.green, cell.bg.blue);
+			bg = ColorRGB(cell.fg.red, cell.fg.green, cell.fg.blue);
+		}
+		else
+		{
+			bg = ColorRGB(cell.bg.red, cell.bg.green, cell.bg.blue);
+			fg = ColorRGB(cell.fg.red, cell.fg.green, cell.fg.blue);
+		}
 	}
 
 	put_str(buf);
