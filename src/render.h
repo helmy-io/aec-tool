@@ -39,9 +39,7 @@ class Render
 	const int HORIZONTAL_MARGIN;
 
 	char const *p_font_family;
-	char const *p_font_bold;
-	char const *p_font_italic;
-	char const *p_font_bold_italic;
+	const int font_size;
 
 	int DESCENT;
 
@@ -56,9 +54,6 @@ public:
 
 	Render(VTerm *vt,
 		char const *p_font_family,
-		char const *p_font_bold,
-		char const *p_font_italic,
-		char const *p_font_bold_italic,
 		int font_size,
 		int vertical_margin, int horizontal_margin);
 

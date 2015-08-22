@@ -50,11 +50,8 @@ void test2()
 	vterm_state_set_default_colors(vterm_obtain_state(vt), &bg, &fg);
 
 	Render render(vt,
-		"./fonts/mono.tff", // font family
-		"./fonts/mono-bold.tff", // bold font
-		"./fonts/mono-oblique.tff", // italic font
-		"./fonts/mono-bold-oblique.tff", // bold-italic font 
-		12, // font size
+		"-*-dejavu sans mono-%s-%s-normal--%d-*-*-*-*-*-*-*", // font
+		32, // font size
 		10, // vertical margin
 		10 // horizontal margin
 		);
@@ -73,10 +70,7 @@ void test1()
 	char a_buf[256];
 	sprintf(a_buf, "");
 	Render render(NULL,
-		"./fonts/mono.tff", // font family
-		"./fonts/mono-bold.tff", // bold font
-		"./fonts/mono-oblique.tff", // italic font
-		"./fonts/mono-bold-oblique.tff", // bold-italic font 
+		"-*-dejavu sans mono-%s-%s-normal--%d-*-*-*-*-*-*-*", // font
 		12, // font size
 		10, // vertical margin
 		10 // horizontal margin

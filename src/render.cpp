@@ -27,12 +27,10 @@ using namespace std;
 
 Render::Render(VTerm *vt,
 	char const *p_font_family,
-	char const *p_font_bold,
-	char const *p_font_italic,
-	char const *p_font_bold_italic,
 	int font_size,
 	int vertical_margin, int horizontal_margin) :
 	vt(vt),
+	p_font_family(p_font_family), font_size(font_size),
 	VERTICAL_MARGIN(vertical_margin), HORIZONTAL_MARGIN(horizontal_margin)
 {
 	row = 0;
@@ -40,18 +38,17 @@ Render::Render(VTerm *vt,
 	bold = false;
 	italic = false;
 	decoration = NoDecoration;
-	
-	this->p_font_family = p_font_family;
-	this->p_font_bold = p_font_bold;
-	this->p_font_italic = p_font_italic;
-	this->p_font_bold_italic = p_font_bold_italic;
 
 	// calculate width and height of a single char (assume
 	// monospaced font!)
 	{
+		char font_name[256];
+		sprintf(font_name, p_font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+		image.font(font_name);
+
 		// TODO: dummies are for noobs
 		Image dummy_image("1x1", "black");
-		dummy_image.font(p_font_family);
+		dummy_image.font(font_name);
 		dummy_image.fontPointsize(font_size);
 		TypeMetric metric;
 		dummy_image.fontTypeMetrics("", &metric);
@@ -100,15 +97,11 @@ void Render::put_str(char const *p_str)
 	// choose text foreground
 	image.fillColor(fg);
 
+	// TODO: font_name should be reconstructed only if bold, italic or size has changed
 	// choose a font from the font family
-	if(bold && italic)
-		image.font(p_font_bold_italic);
-	else if(bold)
-		image.font(p_font_bold);
-	else if(italic)
-		image.font(p_font_italic);
-	else
-		image.font(p_font_family);
+	char font_name[256];
+	sprintf(font_name, p_font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+	image.font(font_name);
 
 	DrawableText text(left_bound, lower_bound + DESCENT - 1,  p_str);
 	list<Drawable> text_list;
