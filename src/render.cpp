@@ -26,11 +26,11 @@ using namespace Magick;
 using namespace std;
 
 Render::Render(VTerm *vt,
-	char const *p_font_family,
+	char const *font_family,
 	int font_size,
 	int vertical_margin, int horizontal_margin) :
 	vt(vt),
-	p_font_family(p_font_family), font_size(font_size),
+	font_family(font_family), font_size(font_size),
 	VERTICAL_MARGIN(vertical_margin), HORIZONTAL_MARGIN(horizontal_margin)
 {
 	row = 0;
@@ -43,7 +43,7 @@ Render::Render(VTerm *vt,
 	// monospaced font!)
 	{
 		char font_name[256];
-		sprintf(font_name, p_font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+		sprintf(font_name, font_family, bold?"bold":"medium", italic?"o":"r", font_size);
 		image.font(font_name);
 
 		// TODO: dummies are for noobs
@@ -75,7 +75,7 @@ Render::Render(VTerm *vt,
 	image.fontPointsize(font_size);
 }
 
-void Render::put_str(char const *p_str)
+void Render::put_str(char const *str)
 {
 	// calculate left bound
 	int left_bound = HORIZONTAL_MARGIN + col * CHAR_WIDTH;
@@ -84,7 +84,7 @@ void Render::put_str(char const *p_str)
 	int lower_bound = VERTICAL_MARGIN + (row + 1) * CHAR_HEIGHT;
 
 	// calculate text width
-	int right_bound = left_bound + strlen(p_str) * CHAR_WIDTH;
+	int right_bound = left_bound + strlen(str) * CHAR_WIDTH;
 
 	// calculate text heigh
 	int upper_bound = lower_bound - CHAR_HEIGHT;
@@ -100,10 +100,10 @@ void Render::put_str(char const *p_str)
 	// TODO: font_name should be reconstructed only if bold, italic or size has changed
 	// choose a font from the font family
 	char font_name[256];
-	sprintf(font_name, p_font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+	sprintf(font_name, font_family, bold?"bold":"medium", italic?"o":"r", font_size);
 	image.font(font_name);
 
-	DrawableText text(left_bound, lower_bound + DESCENT - 1,  p_str);
+	DrawableText text(left_bound, lower_bound + DESCENT - 1,  str);
 	list<Drawable> text_list;
 	text_list.push_back(text);
 	text_list.push_back(DrawableTextDecoration(decoration));
@@ -171,8 +171,8 @@ void Render::repaint_cell()
 	put_str(buf);
 }
 
-void Render::write(char const *p_str)
+void Render::write(char const *str)
 {
-	image.write(p_str);
+	image.write(str);
 }
 

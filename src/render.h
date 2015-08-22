@@ -38,7 +38,7 @@ class Render
 	const int VERTICAL_MARGIN;
 	const int HORIZONTAL_MARGIN;
 
-	char const *p_font_family;
+	char const *font_family;
 	const int font_size;
 
 	int DESCENT;
@@ -53,14 +53,14 @@ public:
 	DecorationType decoration;
 
 	Render(VTerm *vt,
-		char const *p_font_family,
+		char const *font_family,
 		int font_size,
 		int vertical_margin, int horizontal_margin);
 
-	void put_str(char const *p_str);
+	void put_str(char const *str);
 	void repaint();
 	void repaint(int top_row, int top_col, int bot_row, int bot_col);
 	void repaint_cell();
-	void write(char const *p_str);
+	void write(char const *str);
 };
 #endif
