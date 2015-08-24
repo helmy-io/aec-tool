@@ -43,13 +43,13 @@ class Render
 
 	int DESCENT;
 
-public:
 	ColorRGB bg;
 	ColorRGB fg;
 	bool bold;
 	bool italic;
 	DecorationType decoration;
 
+public:
 	Render(VTerm *vt,
 		char const *font_family,
 		int font_size,
