@@ -73,7 +73,6 @@ Render::Render(VTerm *vt,
 	image.fontPointsize(font_size);
 }
 
-
 void Render::repaint()
 {
 	int rows, cols;
@@ -87,12 +86,12 @@ void Render::repaint(int top_row, int top_col, int bot_row, int bot_col)
 	{
 		for(int col = top_col; col <= bot_col; ++col)
 		{
-			repaint_cell(row, col);
+			repaint(row, col);
 		}
 	}
 }
 
-void Render::repaint_cell(int row, int col)
+void Render::repaint(int row, int col)
 {
 	VTermScreenCell cell;
 	VTermPos pos;
