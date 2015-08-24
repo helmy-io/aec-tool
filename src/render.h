@@ -55,10 +55,10 @@ public:
 		int font_size,
 		int vertical_margin, int horizontal_margin);
 
-	void put_str(int row, int col, char const *str);
 	void repaint();
 	void repaint(int top_row, int top_col, int bot_row, int bot_col);
 	void repaint_cell(int row, int col);
+	void put_str(int row, int col, char const *str);
 	void write(char const *file_name);
 };
 #endif

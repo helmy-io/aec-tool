@@ -73,40 +73,6 @@ Render::Render(VTerm *vt,
 	image.fontPointsize(font_size);
 }
 
-void Render::put_str(int row, int col, char const *str)
-{
-	// calculate left bound
-	int left_bound = HORIZONTAL_MARGIN + col * CHAR_WIDTH;
-
-	// calcuate lower bound
-	int lower_bound = VERTICAL_MARGIN + (row + 1) * CHAR_HEIGHT;
-
-	// calculate text width
-	int right_bound = left_bound + strlen(str) * CHAR_WIDTH;
-
-	// calculate text heigh
-	int upper_bound = lower_bound - CHAR_HEIGHT;
-
-	// render background before drawing
-	DrawableRectangle bg_rect(left_bound, upper_bound, right_bound, lower_bound);
-	image.fillColor(bg);
-	image.draw(bg_rect);
-
-	// choose text foreground
-	image.fillColor(fg);
-
-	// TODO: font_name should be reconstructed only if bold, italic or size has changed
-	// choose a font from the font family
-	char font_name[256];
-	snprintf(font_name, sizeof(font_name), font_family, bold?"bold":"medium", italic?"o":"r", font_size);
-	image.font(font_name);
-
-	DrawableText text(left_bound, lower_bound + DESCENT - 1,  str);
-	list<Drawable> text_list;
-	text_list.push_back(text);
-	text_list.push_back(DrawableTextDecoration(decoration));
-	image.draw(text_list);
-}
 
 void Render::repaint()
 {
@@ -167,6 +133,41 @@ void Render::repaint_cell(int row, int col)
 	}
 
 	put_str(row, col, buf);
+}
+
+void Render::put_str(int row, int col, char const *str)
+{
+	// calculate left bound
+	int left_bound = HORIZONTAL_MARGIN + col * CHAR_WIDTH;
+
+	// calcuate lower bound
+	int lower_bound = VERTICAL_MARGIN + (row + 1) * CHAR_HEIGHT;
+
+	// calculate text width
+	int right_bound = left_bound + strlen(str) * CHAR_WIDTH;
+
+	// calculate text heigh
+	int upper_bound = lower_bound - CHAR_HEIGHT;
+
+	// render background before drawing
+	DrawableRectangle bg_rect(left_bound, upper_bound, right_bound, lower_bound);
+	image.fillColor(bg);
+	image.draw(bg_rect);
+
+	// choose text foreground
+	image.fillColor(fg);
+
+	// TODO: font_name should be reconstructed only if bold, italic or size has changed
+	// choose a font from the font family
+	char font_name[256];
+	snprintf(font_name, sizeof(font_name), font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+	image.font(font_name);
+
+	DrawableText text(left_bound, lower_bound + DESCENT - 1,  str);
+	list<Drawable> text_list;
+	text_list.push_back(text);
+	text_list.push_back(DrawableTextDecoration(decoration));
+	image.draw(text_list);
 }
 
 void Render::write(char const *file_name)
