@@ -56,7 +56,7 @@ void test1()
 		);
 
 	char buf[256];
-	sprintf(buf, "Hello, \033[1mworld!\n");
+	snprintf(buf, sizeof(buf), "Hello, \033[1mworld!\n");
 	vterm_input_write(vt, buf, strlen(buf));
 
 	render.repaint();

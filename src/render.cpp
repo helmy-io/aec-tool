@@ -43,7 +43,7 @@ Render::Render(VTerm *vt,
 	// monospaced font!)
 	{
 		char font_name[256];
-		sprintf(font_name, font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+		snprintf(font_name, sizeof(font_name), font_family, bold?"bold":"medium", italic?"o":"r", font_size);
 		image.font(font_name);
 
 		// TODO: dummies are for noobs
@@ -100,7 +100,7 @@ void Render::put_str(char const *str)
 	// TODO: font_name should be reconstructed only if bold, italic or size has changed
 	// choose a font from the font family
 	char font_name[256];
-	sprintf(font_name, font_family, bold?"bold":"medium", italic?"o":"r", font_size);
+	snprintf(font_name, sizeof(font_name), font_family, bold?"bold":"medium", italic?"o":"r", font_size);
 	image.font(font_name);
 
 	DrawableText text(left_bound, lower_bound + DESCENT - 1,  str);
@@ -137,7 +137,7 @@ void Render::repaint_cell()
 	vterm_screen_get_cell(vterm_obtain_screen(vt), pos, &cell);
 
 	char buf[VTERM_MAX_CHARS_PER_CELL];
-	sprintf(buf, "%s", cell.chars);
+	snprintf(buf, sizeof(buf), "%s", cell.chars);
 	
 	bold = cell.attrs.bold;
 	italic = cell.attrs.italic;
