@@ -169,8 +169,8 @@ void Render::repaint_cell(int row, int col)
 	put_str(row, col, buf);
 }
 
-void Render::write(char const *str)
+void Render::write(char const *file_name)
 {
-	image.write(str);
+	image.write(file_name);
 }
 

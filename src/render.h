@@ -59,6 +59,6 @@ public:
 	void repaint();
 	void repaint(int top_row, int top_col, int bot_row, int bot_col);
 	void repaint_cell(int row, int col);
-	void write(char const *str);
+	void write(char const *file_name);
 };
 #endif
