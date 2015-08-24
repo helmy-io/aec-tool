@@ -33,8 +33,6 @@ Render::Render(VTerm *vt,
 	font_family(font_family), font_size(font_size),
 	VERTICAL_MARGIN(vertical_margin), HORIZONTAL_MARGIN(horizontal_margin)
 {
-	row = 0;
-	col = 0;
 	bold = false;
 	italic = false;
 	decoration = NoDecoration;
@@ -75,7 +73,7 @@ Render::Render(VTerm *vt,
 	image.fontPointsize(font_size);
 }
 
-void Render::put_str(char const *str)
+void Render::put_str(int row, int col, char const *str)
 {
 	// calculate left bound
 	int left_bound = HORIZONTAL_MARGIN + col * CHAR_WIDTH;
@@ -119,16 +117,16 @@ void Render::repaint()
 
 void Render::repaint(int top_row, int top_col, int bot_row, int bot_col)
 {
-	for(row = top_row; row <= bot_row; ++row)
+	for(int row = top_row; row <= bot_row; ++row)
 	{
-		for(col = top_col; col <= bot_col; ++col)
+		for(int col = top_col; col <= bot_col; ++col)
 		{
-			repaint_cell();
+			repaint_cell(row, col);
 		}
 	}
 }
 
-void Render::repaint_cell()
+void Render::repaint_cell(int row, int col)
 {
 	VTermScreenCell cell;
 	VTermPos pos;
@@ -168,7 +166,7 @@ void Render::repaint_cell()
 		}
 	}
 
-	put_str(buf);
+	put_str(row, col, buf);
 }
 
 void Render::write(char const *str)

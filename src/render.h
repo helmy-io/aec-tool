@@ -44,8 +44,6 @@ class Render
 	int DESCENT;
 
 public:
-	int row;
-	int col;
 	ColorRGB bg;
 	ColorRGB fg;
 	bool bold;
@@ -57,10 +55,10 @@ public:
 		int font_size,
 		int vertical_margin, int horizontal_margin);
 
-	void put_str(char const *str);
+	void put_str(int row, int col, char const *str);
 	void repaint();
 	void repaint(int top_row, int top_col, int bot_row, int bot_col);
-	void repaint_cell();
+	void repaint_cell(int row, int col);
 	void write(char const *str);
 };
 #endif
